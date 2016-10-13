@@ -62,6 +62,7 @@ func (b *Bucket) Sign(req *http.Request) {
 func (s *signer) sign() {
 	s.buildTime()
 	s.buildCredentialString()
+	s.bodyDigest() // otherwise the X-Amz-Content-Sha256 isn't set in the signed headers
 	s.buildCanonicalHeaders()
 	s.buildCanonicalString()
 	s.buildStringToSign()
